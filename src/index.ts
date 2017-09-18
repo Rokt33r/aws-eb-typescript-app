@@ -6,6 +6,6 @@ app.use((req, res) => {
   res.send('hi')
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('server is ready.')
 })
