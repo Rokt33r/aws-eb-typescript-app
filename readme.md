@@ -51,12 +51,12 @@ app.use((req, res) => {
   res.send('hi')
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('server is ready.')
 })
 ```
 
-## 3 - Build typescript and run
+## 3 - Build typescript and check
 
 Add `build` and `start` scripts to `package.json`.
 
@@ -76,7 +76,53 @@ Compile and run our app with the scripts
 npm run build
 
 # Run with compiled javascript
-npm run start
+PORT=3000 npm run start
 ```
 
+Check our app actually working at http://localhost:3000
 
+### 4 - Prepare Artifact
+
+`scripts/dist.sh`
+
+```sh
+# If the directory, `dist`, doesn't exist, create `dist`
+stat dist || mkdir dist
+# Archive artifacts
+zip dist/$npm_package_name.zip -r build package.json package-lock.json
+```
+
+Add `dist` script
+
+```json
+{
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "dist": "sh ./scripts/dist.sh"
+  }
+}
+```
+
+### 5 - Deploy app
+
+```sh
+# Initialize app to EB
+eb init
+
+# Initialize environment
+eb create
+```
+
+Add 2 lines below to `.elasticbeanstalk/config.yml`.
+
+```yml
+deploy:
+  artifact: dist/aws-eb-typescript-app.zip
+```
+
+Deploy again
+
+```sh
+eb deploy --staged
+```
