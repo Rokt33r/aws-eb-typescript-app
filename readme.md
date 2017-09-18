@@ -1,5 +1,7 @@
 # Typescript app deployment against AWS EB
 
+To deploy an app built with Typescript, we have to deploy its artifacts rather than source code managed by git.
+
 ## 0 - Install EB CLI
 
 To manipulate Elasticbeanstalk, we need to use EB CLI, written in Python. We install this with PIP.
@@ -114,7 +116,7 @@ eb init
 eb create
 ```
 
-Add 2 lines below to `.elasticbeanstalk/config.yml`.
+Add the below 2 lines to the bottom of `.elasticbeanstalk/config.yml`.
 
 ```yml
 deploy:
