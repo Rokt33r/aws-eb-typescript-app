@@ -17,6 +17,6 @@
     "typescript": "^2.5.2"
   },
   "dependencies": {
-    "express": "^4.15.4"
+    "express": "^4.18.2"
   }
 }
